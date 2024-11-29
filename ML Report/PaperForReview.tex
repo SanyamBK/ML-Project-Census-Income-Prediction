@@ -1,0 +1,133 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage[final]{cvpr}  % Changed from review to final      
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[pagebackref,breaklinks,colorlinks]{hyperref}
+\usepackage[capitalize]{cleveref}
+
+\def\cvprPaperID{1234} 
+\def\confName{CVPR}
+\def\confYear{2024}
+
+\begin{document} 
+
+\title{Census Income Prediction: A Machine Learning Approach}
+
+\author{Sanyam Garg, Sameer Singh Godara, Sanyam B Kumar, Vivan Rangra\\
+Indraprastha Institute of Information Technology, Delhi \\
+{\tt\small sanyam22448@iiitd.ac.in } {\tt\small sameer22439@iiitd.ac.in} \\{\tt\small sanyam22447@iiitd.ac.in } {\tt\small vivan22581@iiitd.ac.in} \\
+\and
+Supervisor: Dr. Jainendra Shukla\\
+Indraprastha Institute of Information Technology, Delhi \\
+{\tt\small jainendra@iiitd.ac.in}
+}
+
+\maketitle
+
+%%%%%%%%% ABSTRACT
+\begin{abstract}
+   Predicting income levels based on demographic and socioeconomic factors is essential for various applications like policy-making, targeted marketing, and financial planning. This project focuses on comparing multiple machine learning models—such as Logistic Regression, Decision Trees, and Random Forest—to identify the most effective approach for predicting whether an individual's income is above \$50,000. The Census Income dataset is used to train and evaluate the models. Initial results indicate that Random Forest provides the highest accuracy, though further fine-tuning and testing of models like Support Vector Machines and Neural Networks are required.
+\end{abstract}
+
+%%%%%%%%% 1. INTRODUCTION
+\section{Introduction}
+\label{sec:intro}
+
+Income prediction is a crucial problem with practical implications for governments and businesses. Predicting whether an individual’s income exceeds \$50,000 based on features like age, education, occupation, and marital status can aid in better decision-making for policy development, targeted financial services, and marketing strategies. In this project, we tackle this problem using machine learning algorithms to assess which model offers the best trade-off between accuracy and computational efficiency. 
+
+Binary classification is employed to predict two classes: income greater than \$50,000 or income less than or equal to \$50,000. Our motivation stems from the growing demand for data-driven solutions in the socio-economic sector. The project also serves as a comparative study of several machine learning algorithms, aiming to find the most reliable model for income classification.
+
+%-------------------------------------------------------------------------
+\subsection{Problem Statement}
+Income prediction based on demographic data is a complex task due to the multiple factors influencing income levels. Our objective is to classify individuals into one of two categories: those earning more than \$50,000 and those earning less. We aim to determine which machine learning model is best suited for this binary classification task in terms of accuracy, interpretability, and computational cost.
+
+%%%%%%%%% 2. LITERATURE SURVEY
+\section{Literature Survey}
+\label{sec:lit_review}
+
+A comprehensive literature review was conducted to understand existing methods in income classification using machine learning algorithms. The two most influential studies that guided our approach are outlined below:
+
+\begin{itemize}
+    \item \textbf{\href{https://ieeexplore.ieee.org/document/10181907}{Paper 1: Census Income Prediction using Machine Learning Techniques.}} This paper applies multiple machine learning models—such as Logistic Regression, Decision Trees, and Random Forest—on the UCI Adult Income dataset. It highlights that Random Forest outperforms other models in terms of accuracy and robustness, particularly by reducing overfitting through ensemble methods. This study strongly influenced our decision to prioritize Random Forest in our experimentation, considering its balance between accuracy and generalization.
+
+    \item \textbf{\href{https://www.sciencedirect.com/science/article/pii/S1877050922021159}{Paper 2: Comparative Analysis of Machine Learning Algorithms in Socioeconomic Data.}} This study compares various machine learning models, including Neural Networks, Decision Trees, and SVMs, across several socioeconomic datasets, focusing on the trade-offs between accuracy and interpretability. Complex models like Neural Networks showed higher accuracy, while simpler models like Decision Trees were easier to interpret. The paper influenced our decision to test both complex models for accuracy and simpler models for interpretability, ensuring that our model selection is well-rounded.
+\end{itemize}
+
+These findings underscore the importance of balancing model accuracy with interpretability. Based on the insights from these papers, we decided to focus on Random Forest and Logistic Regression as part of our experimental approach.
+
+%%%%%%%%% 3. DATASET AND PREPROCESSING
+\section{Dataset and Preprocessing}
+\label{sec:dataset}
+
+\subsection{Dataset Overview}
+The dataset used in this study is the Census Income Dataset, often referred to as the Adult dataset. It contains demographic and employment-related attributes of individuals, such as age, education, marital status, occupation, and work class. The target variable is binary: whether an individual earns more than \$50K per year or less than or equal to \$50K. The dataset contains 48,842 instances and 14 features, including both categorical and numerical data types.
+
+\subsection{Data Preprocessing}
+Data preprocessing is crucial for ensuring model quality. First, we handled missing data by removing rows with incomplete values, resulting in a loss of approximately 1500 rows. 
+
+Next, we applied \textbf{label encoding} to transform categorical features (e.g., sex, occupation, work class) into numerical values that machine learning models can process. For numerical features, such as age and hours-per-week, we experimented with two scaling techniques:
+\begin{itemize}
+    \item \textbf{Min-max scaling}: Rescaled features to the range [0, 1].
+    \item \textbf{Standard Scaler}: Normalized the features to have zero mean and unit variance.
+\end{itemize}
+
+By using these preprocessing techniques, we ensured that our models could learn effectively from the data, avoiding biases introduced by large differences in the scale of numeric features.
+
+%%%%%%%%% 4. METHODOLOGY
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Feature Engineering}
+We analyzed the relationships between features and the target variable through a \textbf{correlation matrix}. Features with low correlation, such as race and sex, were removed for linear models to prevent noise from affecting the model's performance. For non-linear models, such as Random Forest and Decision Trees, we retained all features to capture complex interactions.
+
+Further, \textbf{education} was found to be highly correlated with \textbf{education-num} (a numerical representation of education level). We removed one of these features to reduce multicollinearity in the dataset.
+
+\subsection{Model Selection}
+We implemented several models to assess their performance:
+\begin{itemize}
+    \item \textbf{Logistic Regression}: Chosen for its simplicity and ability to provide probabilistic outputs.
+    \item \textbf{Decision Trees}: Selected for their ability to model non-linear relationships and for easy interpretability.
+    \item \textbf{Random Forest}: A powerful ensemble learning method that reduces overfitting by combining multiple decision trees.
+\end{itemize}
+Each model was trained on 80\% of the dataset, and the remaining 20\% was used for testing. We also conducted hyperparameter tuning to optimize model performance.
+
+%%%%%%%%% 5. RESULTS AND ANALYSIS
+\section{Results and Analysis}
+\label{sec:results}
+
+We evaluated model performance based on several key metrics:
+\begin{itemize}
+    \item \textbf{Accuracy}: The overall correctness of the model. Random Forest achieved the highest accuracy at 85\%, outperforming both Logistic Regression and Decision Trees.
+    \item \textbf{Precision and Recall}: These metrics focus on the model’s ability to correctly identify high-income individuals. Random Forest again performed best, striking a good balance between precision (identifying true positives) and recall (minimizing false negatives).
+    \item \textbf{F1-Score}: A combination of precision and recall, providing a more balanced measure of model performance. Random Forest had the highest F1-Score.
+    \item \textbf{AUC-ROC Curve}: This metric assessed how well the model distinguishes between income levels. Random Forest achieved the highest AUC, indicating strong predictive capabilities across varying thresholds.
+\end{itemize}
+
+In summary, Random Forest outperformed the other models in almost every metric, making it the most promising candidate for further fine-tuning.
+
+%%%%%%%%% 6. CONCLUSION
+\section{Conclusion}
+\label{sec:conclusion}
+
+The primary outcome of our project so far is that Random Forest provides the best performance for predicting income levels. This model shows the highest accuracy, precision, recall, and F1-Score among the models tested. Additionally, its robustness to overfitting makes it suitable for further exploration.
+
+\subsection{Future Work}
+The next steps involve:
+\begin{itemize}
+    \item \textbf{Hyperparameter Tuning}: Fine-tuning the parameters of Random Forest and other models to improve accuracy.
+    \item \textbf{Neural Networks and SVMs}: Exploring more complex models that may offer better accuracy at the cost of interpretability.
+    \item \textbf{Cross-Validation}: Implementing k-fold cross-validation to ensure that our results generalize well across different subsets of the data.
+\end{itemize}
+
+\subsection{Individual Contributions}
+\begin{itemize}
+    \item \textbf{Sanyam Garg}: Data collection, preprocessing, feature engineering, project management.
+    \item \textbf{Sameer Singh Godara}: Exploratory Data Analysis (EDA), visualization, report writing, and presentation preparation.
+    \item \textbf{Sanyam B Kumar}: Initial training and evaluation of traditional ML models.
+    \item \textbf{Vivan Rangra}: Training of complex models, hyperparameter tuning, and model comparison.
+\end{itemize}
+
+\end{document}
