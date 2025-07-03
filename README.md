@@ -45,22 +45,6 @@ The dataset used is the **Adult Income Dataset** from the UCI Machine Learning R
 | SVM                 | 89.80%   |
 
 
-## 📁 Project Structure
-```
-
-.
-├── data/
-│   └── adult.csv
-├── notebooks/
-│   ├── preprocessing.ipynb
-│   └── model\_comparison.ipynb
-├── results/
-│   └── metrics.csv
-├── README.md
-└── requirements.txt
-
-````
-
 ## 🚀 How to Run
 
 1. Clone the repository:
